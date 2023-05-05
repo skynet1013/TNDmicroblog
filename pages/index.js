@@ -19,11 +19,11 @@ export default function Home() {
         <div className={styles.grid}>
           <article>
             <Link href="/">
-              <img src='/imges/thumbnail01.jpg'
-                className={styles.thumbnailImage} />
+              <img src='/images/thumbnail01.jpg'
+                className={styles.thumbnailImage} alt="Thumbnail" />
             </Link>
-            <Link href="/">
-              <a className={utileStyles.boldText}>サンプルテキスト</a>
+            <Link href="/" className={utileStyles.boldText}>
+              サンプルテキスト
             </Link>
             <br />
             <small className={utileStyles.lightText}>
