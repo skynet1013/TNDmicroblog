@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 //SSGの場合
 export async function getStaticProps() {
-  const allPostData = getPostsData(); //id,title,Date,thumnail
+  const allPostData = await getPostsData(); //id,title,Date,thumnail
   console.log(allPostData);
 
   return {
@@ -23,7 +23,10 @@ export async function getStaticProps() {
 
 export default function Home({ allPostData }) {
   return (
-    <Layout>
+    <Layout home>
+      <Head>
+        <title>{ }</title>
+      </Head>
       <section className={utileStyles.headingMd}>
         <p>谷田 大空のブログ記事です</p>
       </section>
@@ -31,58 +34,21 @@ export default function Home({ allPostData }) {
       <section>
         <h2>エンジニアのブログ</h2>
         <div className={styles.grid}>
-          <article>
-            <Link href="/">
-              <img src='/images/thumbnail01.jpg'
-                className={styles.thumbnailImage} alt="Thumbnail" />
-            </Link>
-            <Link href="/" className={utileStyles.boldText}>
-              サンプルテキスト
-            </Link>
-            <br />
-            <small className={utileStyles.lightText}>
-              Febrary 2023
-            </small>
-          </article>
-          <article>
-            <Link href="/">
-              <img src='/images/thumbnail01.jpg'
-                className={styles.thumbnailImage} alt="Thumbnail" />
-            </Link>
-            <Link href="/" className={utileStyles.boldText}>
-              サンプルテキスト
-            </Link>
-            <br />
-            <small className={utileStyles.lightText}>
-              Febrary 2023
-            </small>
-          </article>
-          <article>
-            <Link href="/">
-              <img src='/images/thumbnail01.jpg'
-                className={styles.thumbnailImage} alt="Thumbnail" />
-            </Link>
-            <Link href="/" className={utileStyles.boldText}>
-              サンプルテキスト
-            </Link>
-            <br />
-            <small className={utileStyles.lightText}>
-              Febrary 2023
-            </small>
-          </article>
-          <article>
-            <Link href="/">
-              <img src='/images/thumbnail01.jpg'
-                className={styles.thumbnailImage} alt="Thumbnail" />
-            </Link>
-            <Link href="/" className={utileStyles.boldText}>
-              サンプルテキスト
-            </Link>
-            <br />
-            <small className={utileStyles.lightText}>
-              Febrary 2023
-            </small>
-          </article>
+          {allPostData.map(({ id, title, date, thumbnail }) => (
+            <article key={id}>
+              <Link href={`/posts/${id}`}>
+                <img src={`${thumbnail}`}
+                  className={styles.thumbnailImage} alt="Thumbnail" />
+              </Link>
+              <Link href={`/posts/${id}`}>
+                {title}
+              </Link>
+              <br />
+              <small className={utileStyles.lightText}>
+                {date}
+              </small>
+            </article>
+          ))}
         </div>
       </section>
     </Layout>
